@@ -10,6 +10,7 @@
 
 @interface ViewController : UIViewController
 
-
+- (void)logChatMessage:(NSString *)chatMessage;//记录聊天信息
+- (void)logMeta:(NSString *)meta;//记录meta数据。如认证数据、连接数据
 @end
 

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D2796DA1E1F6E0500312E50 /* LeafNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2796D91E1F6E0500312E50 /* LeafNotification.m */; };
 		5EA58AC91C0C58620002CD3A /* BruteForceCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA58AC71C0C58620002CD3A /* BruteForceCoding.m */; };
 		5ED99BD81C0ECC37008C567B /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ED99BD41C0ECC37008C567B /* AsyncSocket.m */; };
 		5ED99BD91C0ECC37008C567B /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ED99BD61C0ECC37008C567B /* AsyncUdpSocket.m */; };
@@ -18,23 +17,10 @@
 		CE44E2191ACE7050007475F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE44E2171ACE7050007475F1 /* Main.storyboard */; };
 		CE44E21B1ACE7050007475F1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE44E21A1ACE7050007475F1 /* Images.xcassets */; };
 		CE44E21E1ACE7050007475F1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE44E21C1ACE7050007475F1 /* LaunchScreen.xib */; };
-		CE44E22A1ACE7050007475F1 /* AsyncSocketDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE44E2291ACE7050007475F1 /* AsyncSocketDemoTests.m */; };
 		CE44E2351ACE7081007475F1 /* LJSocketServe.m in Sources */ = {isa = PBXBuildFile; fileRef = CE44E2341ACE7081007475F1 /* LJSocketServe.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		CE44E2241ACE7050007475F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CE44E2021ACE704F007475F1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CE44E2091ACE704F007475F1;
-			remoteInfo = AsyncSocketDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		0D2796D81E1F6E0500312E50 /* LeafNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeafNotification.h; sourceTree = "<group>"; };
-		0D2796D91E1F6E0500312E50 /* LeafNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeafNotification.m; sourceTree = "<group>"; };
 		5EA58AC71C0C58620002CD3A /* BruteForceCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BruteForceCoding.m; sourceTree = "<group>"; };
 		5EA58AC81C0C58620002CD3A /* BruteForceCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BruteForceCoding.h; sourceTree = "<group>"; };
 		5ED99BD31C0ECC37008C567B /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
@@ -52,22 +38,12 @@
 		CE44E2181ACE7050007475F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE44E21A1ACE7050007475F1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE44E21D1ACE7050007475F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		CE44E2231ACE7050007475F1 /* AsyncSocketDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsyncSocketDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE44E2281ACE7050007475F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE44E2291ACE7050007475F1 /* AsyncSocketDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncSocketDemoTests.m; sourceTree = "<group>"; };
 		CE44E2331ACE7081007475F1 /* LJSocketServe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJSocketServe.h; sourceTree = "<group>"; };
 		CE44E2341ACE7081007475F1 /* LJSocketServe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJSocketServe.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		CE44E2071ACE704F007475F1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CE44E2201ACE7050007475F1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -92,10 +68,7 @@
 		CE44E2011ACE704F007475F1 = {
 			isa = PBXGroup;
 			children = (
-				0D2796D81E1F6E0500312E50 /* LeafNotification.h */,
-				0D2796D91E1F6E0500312E50 /* LeafNotification.m */,
 				CE44E20C1ACE7050007475F1 /* AsyncSocketDemo */,
-				CE44E2261ACE7050007475F1 /* AsyncSocketDemoTests */,
 				CE44E20B1ACE7050007475F1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -104,7 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				CE44E20A1ACE7050007475F1 /* AsyncSocketDemo.app */,
-				CE44E2231ACE7050007475F1 /* AsyncSocketDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,23 +110,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		CE44E2261ACE7050007475F1 /* AsyncSocketDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				CE44E2291ACE7050007475F1 /* AsyncSocketDemoTests.m */,
-				CE44E2271ACE7050007475F1 /* Supporting Files */,
-			);
-			path = AsyncSocketDemoTests;
-			sourceTree = "<group>";
-		};
-		CE44E2271ACE7050007475F1 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				CE44E2281ACE7050007475F1 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -175,24 +130,6 @@
 			productReference = CE44E20A1ACE7050007475F1 /* AsyncSocketDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CE44E2221ACE7050007475F1 /* AsyncSocketDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CE44E2301ACE7050007475F1 /* Build configuration list for PBXNativeTarget "AsyncSocketDemoTests" */;
-			buildPhases = (
-				CE44E21F1ACE7050007475F1 /* Sources */,
-				CE44E2201ACE7050007475F1 /* Frameworks */,
-				CE44E2211ACE7050007475F1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CE44E2251ACE7050007475F1 /* PBXTargetDependency */,
-			);
-			name = AsyncSocketDemoTests;
-			productName = AsyncSocketDemoTests;
-			productReference = CE44E2231ACE7050007475F1 /* AsyncSocketDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -206,10 +143,6 @@
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = F7JAV3CR6S;
 						ProvisioningStyle = Manual;
-					};
-					CE44E2221ACE7050007475F1 = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = CE44E2091ACE704F007475F1;
 					};
 				};
 			};
@@ -227,7 +160,6 @@
 			projectRoot = "";
 			targets = (
 				CE44E2091ACE704F007475F1 /* AsyncSocketDemo */,
-				CE44E2221ACE7050007475F1 /* AsyncSocketDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -244,13 +176,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE44E2211ACE7050007475F1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -262,30 +187,13 @@
 				CE44E2161ACE7050007475F1 /* ViewController.m in Sources */,
 				CE44E2131ACE7050007475F1 /* AppDelegate.m in Sources */,
 				5ED99BD81C0ECC37008C567B /* AsyncSocket.m in Sources */,
-				0D2796DA1E1F6E0500312E50 /* LeafNotification.m in Sources */,
 				CE44E2101ACE7050007475F1 /* main.m in Sources */,
 				CE44E2351ACE7081007475F1 /* LJSocketServe.m in Sources */,
 				5ED99BD91C0ECC37008C567B /* AsyncUdpSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE44E21F1ACE7050007475F1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CE44E22A1ACE7050007475F1 /* AsyncSocketDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		CE44E2251ACE7050007475F1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CE44E2091ACE704F007475F1 /* AsyncSocketDemo */;
-			targetProxy = CE44E2241ACE7050007475F1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CE44E2171ACE7050007475F1 /* Main.storyboard */ = {
@@ -409,40 +317,6 @@
 			};
 			name = Release;
 		};
-		CE44E2311ACE7050007475F1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = AsyncSocketDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsyncSocketDemo.app/AsyncSocketDemo";
-			};
-			name = Debug;
-		};
-		CE44E2321ACE7050007475F1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = AsyncSocketDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AsyncSocketDemo.app/AsyncSocketDemo";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -460,15 +334,6 @@
 			buildConfigurations = (
 				CE44E22E1ACE7050007475F1 /* Debug */,
 				CE44E22F1ACE7050007475F1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CE44E2301ACE7050007475F1 /* Build configuration list for PBXNativeTarget "AsyncSocketDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CE44E2311ACE7050007475F1 /* Debug */,
-				CE44E2321ACE7050007475F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
