@@ -24,17 +24,17 @@ typedef void(^myBlock)(NSString *);
 @property (nonatomic,copy)myBlock block;
 + (LJSocketServe *)sharedSocketServe;
 
-//  socket连接
+///  socket连接
 - (void)startConnectSocket;
 
-// 断开socket连接
+/// 用户断开socket连接
 -(void)cutOffSocket;
 
-// 发送消息
+/// 发送消息
 - (void)sendMessage:(id)message;
 
 
-// gameCode
+/// gameCode
 
 -(int)getGameCode:(NSString *)game;
 -(BOOL)authWrite;

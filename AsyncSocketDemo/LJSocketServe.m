@@ -9,8 +9,9 @@
 #import "LJSocketServe.h"
 #import "BruteForceCoding.h"
 #import "LeafNotification.h"
+
 //自己设定
-#define HOST @"127.0.0.1"
+#define HOST @"10.0.1.15"
 #define PORT 8080
 
 //设置连接超时
@@ -62,27 +63,26 @@ static LJSocketServe *socketServe = nil;
     return nil;
 }
 
+#define BLog(formatString, ...) NSLog((@"%s " formatString), __PRETTY_FUNCTION__, ##__VA_ARGS__);
 
 - (void)startConnectSocket
 {
     self.socket = [[AsyncSocket alloc] initWithDelegate:self];
     [self.socket setRunLoopModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
-    if ( ![self SocketOpen:HOST port:PORT] )
-    {
-        
-    }
-    
+    [self SocketOpen:HOST port:PORT];
 }
-- (NSInteger)SocketOpen:(NSString*)addr port:(NSInteger)port
+
+//总是返回0
+- (void)SocketOpen:(NSString*)addr port:(NSInteger)port
 {
-    
-    if (![self.socket isConnected])
+    BOOL alreadyConnected = [self.socket isConnected];
+    BLog(@"alreadyConnected:%d",alreadyConnected);
+    if (!alreadyConnected)//未连接的话进行连接
     {
         NSError *error = nil;
         [self.socket connectToHost:addr onPort:port withTimeout:TIME_OUT error:&error];
     }
     
-    return 0;
 }
 
 
@@ -103,27 +103,24 @@ static LJSocketServe *socketServe = nil;
 //发送认证消息
 -(BOOL)authWrite{
 
-    int gameCode = [self getGameCode:@"liangshan"];
-    NSString *stringGameCode = [NSString stringWithFormat:@"%d",gameCode];
     self.uid = 1;
-    NSString *uidString = [NSString stringWithFormat:@"%ld",self.uid];
-    NSString *msg = [NSString stringWithFormat:@"%@,%@",uidString,stringGameCode];
+    NSString *msg = @"token1";
     NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
     Byte *msgByte = (Byte *)[msgData bytes];
     unsigned long packLength = msg.length + 16;
-    
+
     Byte baotou[16] ;
     BruteForceCoding *brute = [[BruteForceCoding alloc]init];
     //移位
     //package length
     int offset = [brute encodeIntBigEndian:baotou val:packLength offset:0 size:4];
-    
+
     //header length
     offset = [brute encodeIntBigEndian:baotou val:16 offset:offset size:2];
-    
+
     //ver
     offset = [brute encodeIntBigEndian:baotou val:2 offset:offset size:2];
-    
+
     //operation
     offset = [brute encodeIntBigEndian:baotou val:7 offset:offset size:4];
 
@@ -144,11 +141,8 @@ static LJSocketServe *socketServe = nil;
 //发送心跳
 -(BOOL)heartBeatWrite{
 
-    int gameCode = [self getGameCode:@"liangshan"];
-    NSString *stringGameCode = [NSString stringWithFormat:@"%d",gameCode];
     self.uid = 1;
-    NSString *uidString = [NSString stringWithFormat:@"%ld",self.uid];
-    NSString *msg = [NSString stringWithFormat:@"%@,%@",uidString,stringGameCode];
+    NSString *msg = @"token1";
     NSData *msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
     Byte *msgByte = (Byte *)[msgData bytes];
     unsigned long packLength = msg.length + 16;
@@ -176,22 +170,9 @@ static LJSocketServe *socketServe = nil;
     Byte *resultByte = [brute addByte1:baotou andLength:baotouLength andByte2:msgByte andLength:msgLength];
     NSData *data = [NSData dataWithBytes:resultByte length:baotouLength + msgLength];
     [self.socket writeData:data withTimeout:TIME_OUT tag:101];
-    NSLog(@"-----------------------心跳消息发送数据成功");
+    NSLog(@"-----------------------【heartBeatWrite Done】");
     return YES;
 
-}
-
-//获取游戏字符串对应ASCII码值之和
--(int)getGameCode:(NSString *)game{
-
-    NSData  *data = [game dataUsingEncoding:NSUTF8StringEncoding];
-    Byte *byteArray = (Byte *)[data bytes];
-    int sum = 0;
-    for (int i = 0; i < data.length ; i ++) {
-        sum += byteArray[i];
-    }
-    return sum;
-    
 }
 
 
@@ -201,7 +182,7 @@ static LJSocketServe *socketServe = nil;
 {
     [NSThread sleepForTimeInterval:2];
 
-    NSLog(@"----------------连接失败 %ld",sock.userData);
+    NSLog(@"----------------【onSocketDidDisconnect】 %ld",sock.userData);
     
     if (sock.userData == SocketOfflineByServer) {
         // 服务器掉线，重连
@@ -251,16 +232,15 @@ static LJSocketServe *socketServe = nil;
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
     //这是异步返回的连接成功，
-    NSLog(@"-------------连接成功回调");
+    NSLog(@"-------------【didConnectToHost %@:%d】",host,port);
     [self authWrite];
-    
 }
 
 
 //接受消息成功之后回调
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    NSLog(@"-------------接收消息成功之后回调");
+    NSLog(@"-------------【didReadData】");
 
     //服务端返回消息数据量比较大时，可能分多次返回。所以在读取消息的时候，设置MAX_BUFFER表示每次最多读取多少，当data.length < MAX_BUFFER我们认为有可能是接受完一个完整的消息，然后才解析
     if( data.length < MAX_BUFFER )
@@ -312,7 +292,7 @@ static LJSocketServe *socketServe = nil;
 //发送消息成功之后回调
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    NSLog(@"-------------发送消息成功之后回调");
+    NSLog(@"-------------【didWriteDataWithTag:%d】",tag);
     //读取消息
     [self.socket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:MAX_BUFFER tag:0];
 }

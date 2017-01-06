@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D2796DA1E1F6E0500312E50 /* LeafNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2796D91E1F6E0500312E50 /* LeafNotification.m */; };
 		5EA58AC91C0C58620002CD3A /* BruteForceCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA58AC71C0C58620002CD3A /* BruteForceCoding.m */; };
 		5ED99BD81C0ECC37008C567B /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ED99BD41C0ECC37008C567B /* AsyncSocket.m */; };
 		5ED99BD91C0ECC37008C567B /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ED99BD61C0ECC37008C567B /* AsyncUdpSocket.m */; };
@@ -32,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D2796D81E1F6E0500312E50 /* LeafNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeafNotification.h; sourceTree = "<group>"; };
+		0D2796D91E1F6E0500312E50 /* LeafNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeafNotification.m; sourceTree = "<group>"; };
 		5EA58AC71C0C58620002CD3A /* BruteForceCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BruteForceCoding.m; sourceTree = "<group>"; };
 		5EA58AC81C0C58620002CD3A /* BruteForceCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BruteForceCoding.h; sourceTree = "<group>"; };
 		5ED99BD31C0ECC37008C567B /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
@@ -89,6 +92,8 @@
 		CE44E2011ACE704F007475F1 = {
 			isa = PBXGroup;
 			children = (
+				0D2796D81E1F6E0500312E50 /* LeafNotification.h */,
+				0D2796D91E1F6E0500312E50 /* LeafNotification.m */,
 				CE44E20C1ACE7050007475F1 /* AsyncSocketDemo */,
 				CE44E2261ACE7050007475F1 /* AsyncSocketDemoTests */,
 				CE44E20B1ACE7050007475F1 /* Products */,
@@ -199,6 +204,8 @@
 				TargetAttributes = {
 					CE44E2091ACE704F007475F1 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = F7JAV3CR6S;
+						ProvisioningStyle = Manual;
 					};
 					CE44E2221ACE7050007475F1 = {
 						CreatedOnToolsVersion = 6.2;
@@ -255,6 +262,7 @@
 				CE44E2161ACE7050007475F1 /* ViewController.m in Sources */,
 				CE44E2131ACE7050007475F1 /* AppDelegate.m in Sources */,
 				5ED99BD81C0ECC37008C567B /* AsyncSocket.m in Sources */,
+				0D2796DA1E1F6E0500312E50 /* LeafNotification.m in Sources */,
 				CE44E2101ACE7050007475F1 /* main.m in Sources */,
 				CE44E2351ACE7081007475F1 /* LJSocketServe.m in Sources */,
 				5ED99BD91C0ECC37008C567B /* AsyncUdpSocket.m in Sources */,
@@ -379,9 +387,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = F7JAV3CR6S;
 				INFOPLIST_FILE = AsyncSocketDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1a66a980-5838-483e-bb27-37c04a3ad16c";
+				PROVISIONING_PROFILE_SPECIFIER = star;
 			};
 			name = Debug;
 		};
@@ -389,9 +400,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = F7JAV3CR6S;
 				INFOPLIST_FILE = AsyncSocketDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1a66a980-5838-483e-bb27-37c04a3ad16c";
+				PROVISIONING_PROFILE_SPECIFIER = star;
 			};
 			name = Release;
 		};
