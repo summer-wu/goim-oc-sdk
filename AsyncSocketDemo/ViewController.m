@@ -7,9 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "LJSocketServe.h"
+#import "GoIMSocketClient.h"
 
-#define kSocketServe [LJSocketServe sharedSocketServe]
+#define kSocketClient [GoIMSocketClient sharedSocketServe]
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *tv0;//聊天文字
 @property (weak, nonatomic) IBOutlet UITextView *tv1;//meta信息
@@ -26,14 +26,15 @@
     self.tv1.layer.borderWidth = 1;
 
     [super viewDidLoad];
-    kSocketServe.vc = self;
-    [kSocketServe cutOffSocket];
-    kSocketServe.socket.userData = SocketOfflineByServer;
+    kSocketClient.vc = self;
+    [kSocketClient cutOffSocket];
+    kSocketClient.socket.userData = SocketOfflineByServer;
 }
 
 - (IBAction)connectClicked:(id)sender {
+    [kSocketClient cutOffSocket];//先断开连接
     [self logMeta:@"点击了 连接服务器 按钮"];
-    [kSocketServe startConnectSocket];
+    [kSocketClient startConnectSocket];
 
 }
 
@@ -43,7 +44,7 @@
         authToken = self.authTf.placeholder;
     }
     NSString *meta = [NSString stringWithFormat:@"点击了 认证 按钮，用于认证的字符串是:%@",authToken]; [self logMeta:meta];
-    [kSocketServe sendAuthWithToken:authToken];
+    [kSocketClient sendAuthWithToken:authToken];
 }
 
 - (IBAction)cleanTVs:(id)sender {
@@ -52,7 +53,7 @@
 }
 
 - (IBAction)disconnectClicked:(id)sender {
-    [kSocketServe cutOffSocket];
+    [kSocketClient cutOffSocket];
 }
 
 #define kTipAlert(_S_, ...)     [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:(_S_), ##__VA_ARGS__] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil] show]
@@ -70,7 +71,7 @@
 
     NSString *meta = [NSString stringWithFormat:@"点击了 发送 按钮，要发送的字符串是:%@",txt]; [self logMeta:meta];
     NSString *chat = [NSString stringWithFormat:@"我说:%@",txt]; [self logChatMessage:chat];
-    [kSocketServe sendChatMessage:txt toUser:toUser];
+    [kSocketClient sendChatMessage:txt toUser:toUser];
     self.msgTf.text = @"";
 }
 

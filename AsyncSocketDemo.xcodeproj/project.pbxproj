@@ -17,7 +17,7 @@
 		CE44E2191ACE7050007475F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE44E2171ACE7050007475F1 /* Main.storyboard */; };
 		CE44E21B1ACE7050007475F1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE44E21A1ACE7050007475F1 /* Images.xcassets */; };
 		CE44E21E1ACE7050007475F1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE44E21C1ACE7050007475F1 /* LaunchScreen.xib */; };
-		CE44E2351ACE7081007475F1 /* LJSocketServe.m in Sources */ = {isa = PBXBuildFile; fileRef = CE44E2341ACE7081007475F1 /* LJSocketServe.m */; };
+		CE44E2351ACE7081007475F1 /* GoIMSocketClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CE44E2341ACE7081007475F1 /* GoIMSocketClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +38,8 @@
 		CE44E2181ACE7050007475F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE44E21A1ACE7050007475F1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE44E21D1ACE7050007475F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		CE44E2331ACE7081007475F1 /* LJSocketServe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJSocketServe.h; sourceTree = "<group>"; };
-		CE44E2341ACE7081007475F1 /* LJSocketServe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJSocketServe.m; sourceTree = "<group>"; };
+		CE44E2331ACE7081007475F1 /* GoIMSocketClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoIMSocketClient.h; sourceTree = "<group>"; };
+		CE44E2341ACE7081007475F1 /* GoIMSocketClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoIMSocketClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,8 +89,8 @@
 				CE44E2121ACE7050007475F1 /* AppDelegate.m */,
 				CE44E2141ACE7050007475F1 /* ViewController.h */,
 				CE44E2151ACE7050007475F1 /* ViewController.m */,
-				CE44E2331ACE7081007475F1 /* LJSocketServe.h */,
-				CE44E2341ACE7081007475F1 /* LJSocketServe.m */,
+				CE44E2331ACE7081007475F1 /* GoIMSocketClient.h */,
+				CE44E2341ACE7081007475F1 /* GoIMSocketClient.m */,
 				5EA58AC81C0C58620002CD3A /* BruteForceCoding.h */,
 				5EA58AC71C0C58620002CD3A /* BruteForceCoding.m */,
 				CE44E2171ACE7050007475F1 /* Main.storyboard */,
@@ -188,7 +188,7 @@
 				CE44E2131ACE7050007475F1 /* AppDelegate.m in Sources */,
 				5ED99BD81C0ECC37008C567B /* AsyncSocket.m in Sources */,
 				CE44E2101ACE7050007475F1 /* main.m in Sources */,
-				CE44E2351ACE7081007475F1 /* LJSocketServe.m in Sources */,
+				CE44E2351ACE7081007475F1 /* GoIMSocketClient.m in Sources */,
 				5ED99BD91C0ECC37008C567B /* AsyncUdpSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

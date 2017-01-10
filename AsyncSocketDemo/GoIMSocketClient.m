@@ -6,11 +6,11 @@
 //  Copyright (c) 2015年 刘佳. All rights reserved.
 //
 
-#import "LJSocketServe.h"
+#import "GoIMSocketClient.h"
 #import "BruteForceCoding.h"
 
 //自己设定
-#define HOST @"10.0.1.15"
+#define HOST @"chat.dafork.com"
 #define PORT 8080
 
 //设置连接超时
@@ -25,21 +25,21 @@
 //每次最多读取多少
 #define MAX_BUFFER 1024
 
-@interface LJSocketServe ()
+@interface GoIMSocketClient ()
 
 @property (nonatomic,strong)NSData *data;
 
 @end
 
-@implementation LJSocketServe
+@implementation GoIMSocketClient
 
 
-static LJSocketServe *socketServe = nil;
+static GoIMSocketClient *socketServe = nil;
 
 #pragma mark public static methods
 
 
-+ (LJSocketServe *)sharedSocketServe {
++ (GoIMSocketClient *)sharedSocketServe {
     @synchronized(self) {
         if(socketServe == nil) {
             socketServe = [[[self class] alloc] init];
@@ -121,7 +121,7 @@ static LJSocketServe *socketServe = nil;
     offset = [brute encodeIntBigEndian:baotou val:2 offset:offset size:2];
 
     //operation
-    offset = [brute encodeIntBigEndian:baotou val:4/*OP_SEND_SMS*/ offset:offset size:4];
+    offset = [brute encodeIntBigEndian:baotou val:GoIMOP_SEND_SMS offset:offset size:4];
 
     //Sequence Id
     offset = [brute encodeIntBigEndian:baotou val:3 offset:offset size:4];
@@ -154,7 +154,7 @@ static LJSocketServe *socketServe = nil;
     offset = [brute encodeIntBigEndian:baotou val:2 offset:offset size:2];
 
     //operation
-    offset = [brute encodeIntBigEndian:baotou val:7 offset:offset size:4];
+    offset = [brute encodeIntBigEndian:baotou val:GoIMOP_AUTH offset:offset size:4];
 
     //Sequence Id
     offset = [brute encodeIntBigEndian:baotou val:2 offset:offset size:4];
@@ -187,7 +187,7 @@ static LJSocketServe *socketServe = nil;
     offset = [brute encodeIntBigEndian:baotou val:1 offset:offset size:2];
     
     //operation
-    offset = [brute encodeIntBigEndian:baotou val:2/*OP_HEARTBEAT*/ offset:offset size:4];
+    offset = [brute encodeIntBigEndian:baotou val:GoIMOP_HEARTBEAT offset:offset size:4];
     
     //Sequence Id
     offset = [brute encodeIntBigEndian:baotou val:1 offset:offset size:4];
@@ -204,9 +204,11 @@ static LJSocketServe *socketServe = nil;
 
 #pragma mark - Delegate
 
+// 连接超时[AsyncSocket doConnectTimeout]后也调用这个方法
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
-    NSString *meta = [NSString stringWithFormat:@"onSocketDidDisconnect，reason:%@",[LJSocketServe stringFromOfflineBy:sock.userData]];[self.vc logMeta:meta];
+    [self.heartTimer invalidate];//停止心跳timer
+    NSString *meta = [NSString stringWithFormat:@"onSocketDidDisconnect，reason:%@",[GoIMSocketClient stringFromOfflineBy:sock.userData]];[self.vc logMeta:meta];
 
     [NSThread sleepForTimeInterval:2];
 
@@ -215,17 +217,13 @@ static LJSocketServe *socketServe = nil;
     if (sock.userData == SocketOfflineByServer) {
         // 服务器掉线，重连
         [self startConnectSocket];
-    }
-    else if (sock.userData == SocketOfflineByUser) {
-        
+    }else if (sock.userData == SocketOfflineByUser) {
         // 如果由用户断开，不进行重连
         return;
     }else if (sock.userData == SocketOfflineByWifiCut) {
-        
         // wifi断开，两秒发送一次请求
         [self startConnectSocket];
     }
-    
 }
 
 + (NSString *)stringFromOfflineBy:(long)offlineBy{
@@ -296,14 +294,16 @@ static LJSocketServe *socketServe = nil;
         
         //解析指令，不同指令执行不同的操作
         NSInteger operation = [brute decodeIntBigEndian:inBuffer offset:8 size:4];
-        if (3 == operation/*OP_HEARTBEAT_REPLY*/) {
-            [self.vc logMeta:@"did receive OP_HEARTBEAT_REPLY 收到心跳包回复"];
-        } else if (8 == operation/*OP_AUTH_REPLY*/) {
+        if (GoIMOP_HANDSHARE_REPLY == operation) {
+            [self.vc logMeta:@"did receive GoIMOP_HANDSHARE_REPLY 收到心跳包回复"];
+        } else if (GoIMOP_AUTH_REPLY == operation) {
             [self.vc logMeta:@"did receive OP_AUTH_REPLY 认证成功。立即开始发心跳包，并每5秒再发一个"];
+            NSData *data = [NSData dataWithBytes:resultByte length:dataLength - 16];
+            NSInteger interval = [self heartbeatIntervalFromData:data];
             //通过定时器不断发送消息，来检测长连接
-            self.heartTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(heartBeatWrite) userInfo:nil repeats:YES];
+            self.heartTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(heartBeatWrite) userInfo:nil repeats:YES];
             [self.heartTimer fire];
-        } else if (5 == operation/*OP_SEND_SMS_REPLY*/) {
+        } else if (GoIMOP_SEND_SMS_REPLY == operation) {
             //解析出body内容
             NSData *data = [NSData dataWithBytes:resultByte length:dataLength - 16];
             NSString *meta = [NSString stringWithFormat:@"did receive OP_SEND_SMS_REPLY，长度为%ld(0表示发送成功，大于0是别人给我发)",data.length]; [self.vc logMeta:meta];
@@ -316,9 +316,26 @@ static LJSocketServe *socketServe = nil;
     }
 
     [self.socket readDataWithTimeout:READ_TIME_OUT buffer:nil bufferOffset:0 maxLength:MAX_BUFFER tag:0];
-    
 }
 
+
+- (NSInteger)heartbeatIntervalFromData:(NSData *)data{
+    NSError *e;
+    NSDictionary *d = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&e];
+    if (e) {
+        NSLog(@"---获取心跳包interval出错:%@",e);
+        NSString *meta = [NSString stringWithFormat:@"---获取心跳包interval出错:%@",e];[self.vc logMeta:meta];
+        return 5;//默认5秒心跳一次
+    }
+    NSNumber *beat_num = d[@"heart_beat"];
+    if ([beat_num isKindOfClass:[NSNumber class]]) {
+        NSInteger beat = beat_num.integerValue;
+        NSString *meta = [NSString stringWithFormat:@"---获取到心跳包interval:%ld",beat];[self.vc logMeta:meta];
+        return beat;
+    } else {
+        return 5;
+    }
+}
 
 //发送消息成功之后回调
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag

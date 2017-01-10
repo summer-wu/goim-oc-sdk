@@ -680,9 +680,12 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 	return [self initWithDelegate:delegate userData:0];
 }
 
+static int countInMemory = 0;
+
 // Designated initializer.
 - (id)initWithDelegate:(id)delegate userData:(long)userData
 {
+
 	if((self = [super init]))
 	{
 		theFlags = DEFAULT_PREBUFFERING ? kEnablePreBuffering : 0;
@@ -724,6 +727,10 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 		
 		// Default run loop modes
 		theRunLoopModes = [NSArray arrayWithObject:NSDefaultRunLoopMode];
+
+        countInMemory += 1;
+        NSLog(@"AsyncSocket count in memory(after init):%d",countInMemory);
+
 	}
 	return self;
 }
@@ -731,6 +738,9 @@ static void MyCFWriteStreamCallback(CFWriteStreamRef stream, CFStreamEventType t
 // The socket may been initialized in a connected state and auto-released, so this should close it down cleanly.
 - (void)dealloc
 {
+    countInMemory -= 1;
+    NSLog(@"AsyncSocket count in memory(after dealloc):%d",countInMemory);
+
 	[self close];
 	[NSObject cancelPreviousPerformRequestsWithTarget:self];
 }

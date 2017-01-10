@@ -16,28 +16,30 @@ enum{
     SocketOfflineByWifiCut,     //wifi 断开
 };
 
-//const (
-//       OP_HANDSHARE        = int32(0)
-//       OP_HANDSHARE_REPLY  = int32(1)
-//       OP_HEARTBEAT        = int32(2)
-//       OP_HEARTBEAT_REPLY  = int32(3)
-//       OP_SEND_SMS         = int32(4)
-//       OP_SEND_SMS_REPLY   = int32(5)
-//       OP_DISCONNECT_REPLY = int32(6)
-//       OP_AUTH             = int32(7)
-//       OP_AUTH_REPLY       = int32(8)
-//       OP_TEST             = int32(254)
-//       OP_TEST_REPLY       = int32(255)
-//       )
+
+typedef NS_ENUM(NSUInteger, GoIMOP) {
+    GoIMOP_HANDSHARE = 0,
+    GoIMOP_HANDSHARE_REPLY = 1,
+    GoIMOP_HEARTBEAT = 2,
+    GoIMOP_HEARTBEAT_REPLY = 3,
+    GoIMOP_SEND_SMS = 4,
+    GoIMOP_SEND_SMS_REPLY = 5,
+    GoIMOP_DISCONNECT_REPLY = 6,
+    GoIMOP_AUTH = 7,
+    GoIMOP_AUTH_REPLY = 8,
+    GoIMOP_TEST = 254,
+    GoIMOP_TEST_REPLY = 255   
+};
+
 
 
 typedef void(^myBlock)(NSString *);
-@interface LJSocketServe : NSObject<AsyncSocketDelegate>
+@interface GoIMSocketClient : NSObject<AsyncSocketDelegate>
 @property ViewController *vc;
 @property (nonatomic, strong) AsyncSocket         *socket;       // socket
 @property (nonatomic, retain) NSTimer             *heartTimer;   // 心跳计时器
 @property (nonatomic,copy)myBlock block;
-+ (LJSocketServe *)sharedSocketServe;
++ (GoIMSocketClient *)sharedSocketServe;
 
 /// socket连接
 - (void)startConnectSocket;
